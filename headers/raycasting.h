@@ -2,14 +2,25 @@
 #define RAYCASTING_H
 
 #include <SDL2/SDL.h>
+#include <math.h>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_W 800
+#define WINDOW_H 600
 #define MAP_W 10
 #define MAP_H 10
 #define FOV 60
 #define MOVE_SPEED 0.1f
 #define ROTATE_SPEED 0.1f
+
+// Define M_PI if it is not defined
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+// Define M_PI_2 if it is not defined
+#ifndef M_PI_2
+#define M_PI_2 (M_PI / 2.0)
+#endif
 
 typedef struct {
     float x;

@@ -1,4 +1,5 @@
 #include "raycasting.h"
+#include <math.h>
 
 /**
  * handle_input - function to handle input

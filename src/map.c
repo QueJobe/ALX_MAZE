@@ -13,7 +13,7 @@ int parse_line(const char *line, int row, int map[MAP_W][MAP_H])
 {
 	int col = 0;
 
-	for (col = 0; col < MAP_W && line[col] != '\0', col++)
+	for (col = 0; col < MAP_W && line[col] != '\0'; col++)
 	{
 		if (line[col] == '1')
 		{
@@ -21,7 +21,7 @@ int parse_line(const char *line, int row, int map[MAP_W][MAP_H])
 		}
 		else if (line[col] == '0')
 		{
-			map[row][col] = 0
+			map[row][col] = 0;
 		}
 		else
 			return (0);

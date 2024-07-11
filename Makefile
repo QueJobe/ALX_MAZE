@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=c99
+LIBS = -lSDL2 -lm
 
 SRC_DIR = src
 INC_DIR = headers
@@ -11,7 +12,7 @@ DEPS = $(wildcard $(INC_DIR)/*.h)
 TARGET = raycasting_game
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c -o $@ $<

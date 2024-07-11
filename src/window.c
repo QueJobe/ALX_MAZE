@@ -7,18 +7,18 @@
  * return: Nothing void
  */
 
-void init_sdl(SDL_WINDOW **window, SDL_Renderer **renderer)
+void init_sdl(SDL_Window **window, SDL_Renderer **renderer)
 {
 	*window = SDL_CreateWindow("Raycasting Game",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			WINDOW_WIDTH,
-			WINDOW_HEIGHT,
+			WINDOW_W,
+			WINDOW_H,
 			SDL_WINDOW_SHOWN);
 
 	if (*window == NULL)
 	{
-		fprintf(stderr, "Error creating window: %s\n", SDL_Geterror());
+		fprintf(stderr, "Error creating window: %s\n", SDL_GetError());
 		exit(1);
 	}
 

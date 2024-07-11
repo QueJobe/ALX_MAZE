@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	Player player = {5.0f, 5.0f, 0.0f};
-	int map[MAP_WIDTH][MAP_HEIGHT] = {0};
+	int map[MAP_W][MAP_H] = {0};
 	SDL_Event e;
 	int quit = 0;
 
