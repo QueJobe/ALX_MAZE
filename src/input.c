@@ -1,62 +1,71 @@
 #include "raycasting.h"
-#include <math.h>
 
 /**
- * handle_input - function to handle input
- * @player: player object passed to function
- * @map: map object to pass
- * return: Null void function
- */
+ * SDL_KEYDOWN_FUNC - process input when a key is down
+ * @event: union that contains structures for the different event types
+*/
 
-void handle_input(Player *player, int map[MAP_W][MAP_H])
+void SDL_KEYDOWN_FUNC(SDL_Event event)
 {
-	const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+	if (event.key.keysym.sym == SDLK_ESCAPE)
+		GameRunning = false;
+	if (event.key.keysym.sym == SDLK_UP)
+		player.walkDirection = +1;
+	if (event.key.keysym.sym == SDLK_DOWN)
+		player.walkDirection = -1;
+	if (event.key.keysym.sym == SDLK_RIGHT)
+		player.turnDirection = +1;
+	if (event.key.keysym.sym == SDLK_LEFT)
+		player.turnDirection = -1;
+	if (event.key.keysym.sym == SDLK_w)
+		player.walkDirection = +1;
+	if (event.key.keysym.sym == SDLK_s)
+		player.walkDirection = -1;
+	if (event.key.keysym.sym == SDLK_a)
+		player.turnDirection = -1;
+	if (event.key.keysym.sym == SDLK_d)
+		player.turnDirection = +1;
+}
 
-	if (keystate[SDL_SCANCODE_LEFT])
-		player->angle -= ROTATE_SPEED;
-	if (keystate[SDL_SCANCODE_RIGHT])
-		player->angle += ROTATE_SPEED;
-	if (keystate[SDL_SCANCODE_W])
-	{
-		float new_x = player->x + cos(player->angle) * MOVE_SPEED;
-		float new_y = player->y + sin(player->angle) * MOVE_SPEED;
+/**
+ * SDL_KEYUP_FUNC - process input when a key is up
+ * @event: union that contains structures for the different event types
+*/
 
-		if (!check_collision(new_x, new_y, map))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (keystate[SDL_SCANCODE_S])
-	{
-		float new_x = player->x - cos(player->angle) * MOVE_SPEED;
-		float new_y = player->y - sin(player->angle) * MOVE_SPEED;
-		if (!check_collision(new_x, new_y, map))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (keystate[SDL_SCANCODE_A])
-	{
-		float new_x = player->x + cos(player->angle - M_PI_2) * MOVE_SPEED;
-		float new_y = player->y + sin(player->angle - M_PI_2) * MOVE_SPEED;
+void SDL_KEYUP_FUNC(SDL_Event event)
+{
+	if (event.key.keysym.sym == SDLK_UP)
+		player.walkDirection = 0;
+	if (event.key.keysym.sym == SDLK_DOWN)
+		player.walkDirection = 0;
+	if (event.key.keysym.sym == SDLK_RIGHT)
+		player.turnDirection = 0;
+	if (event.key.keysym.sym == SDLK_LEFT)
+		player.turnDirection = 0;
+	if (event.key.keysym.sym == SDLK_w)
+		player.walkDirection = 0;
+	if (event.key.keysym.sym == SDLK_s)
+		player.walkDirection = 0;
+	if (event.key.keysym.sym == SDLK_a)
+		player.turnDirection = 0;
+	if (event.key.keysym.sym == SDLK_d)
+		player.turnDirection = 0;
+}
 
-		if (!check_collision(new_x, new_y, map))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
-	if (keystate[SDL_SCANCODE_D])
-	{
-		float new_x = player->x + cos(player->angle + M_PI_2) * MOVE_SPEED;
-		float new_y = player->y + sin(player->angle + M_PI_2) * MOVE_SPEED;
+/**
+ * handleInput - process input from the keyboard
+ *
+*/
+void handleInput(void)
+{
+	SDL_Event event;
 
-		if (!check_collision(new_x, new_y, map))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
-	}
+	SDL_PollEvent(&event);
+
+	if (event.type == SDL_QUIT)
+		GameRunning = false;
+	else if (event.type == SDL_KEYDOWN)
+		SDL_KEYDOWN_FUNC(event);
+	else if (event.type == SDL_KEYUP)
+		SDL_KEYUP_FUNC(event);
 }
